@@ -1,0 +1,32 @@
+.submit-btn{
+   font-family: "Roboto", sans-serif;
+   text-transform: uppercase;
+   outline: 0;
+   background: #0467E5;
+   width: 100%;
+   border: 0;
+   padding: 15px;
+   font-size: 14px;
+   color:white;
+ }
+ .contact-us {
+   background-image: linear-gradient(#2A68F5, #BE56F5);
+   height:100%; 
+   background: #333   
+               url("../../images/pexels-photo1.jpeg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height:580px;
+ }
+ .container{
+     padding-bottom:60px;
+ }
+ .container-contact h1, h2,p{
+     color:white; 
+     margin: 10px;
+     text-align: center;
+ }
+ .contact-form{
+     margin: 25px;
+ }

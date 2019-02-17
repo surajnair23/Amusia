@@ -1,0 +1,167 @@
+import React, { Component } from "react";
+import axios from "axios";
+import { Nav } from "./Nav";
+import {Footer} from "./Footer";
+
+import "../components/css/Mainpage.css";
+export class Mainpage extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedFile: [],
+      success: '',
+      filename: ''
+    };
+    // localStorage.clear();
+    if(localStorage.getItem('firstname') == null){
+      this.isloggedin = false;
+    }else{
+      this.isloggedin = true;
+    }
+    this.filendisplay = null;
+    this.fileid = null;
+    this.filename = null;
+    this.url = null;
+    // ********************test audio
+    this.audioF = null;
+    // ********************test audio
+    this.handleselectedFile = this.handleselectedFile.bind(this);
+    this.handleUpload = this.handleUpload.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.captureInput = this.captureInput.bind(this);
+    this.trackid = this.trackid.bind(this);
+  }
+
+  handleUpload() {
+    // e.preventDefault();
+    const fd = new FormData();
+    if(this.state.filename === ''){
+      console.log('this was a mandatory input');
+      return;
+    }else{
+     // creating the form data with the name that can be identified at the server
+      fd.append('musicUpload',this.state.selectedFile,this.state.filename);
+      // console.log(this.state.selectedFile); 
+    }
+    //========================================
+    axios
+      .post("http://localhost:8080/music/upload", fd)
+      .then(result => {
+        // console.log(result);
+        if (result.data.errors) {
+          return this.setState(result.data);
+        }else{
+          console.log("***************"+JSON.stringify(result.data));
+          // this.audioF = result.data; //------------------------------------------> end game file
+          this.audioF = this.url;
+          this.filendisplay = this.state.filename;
+          this.setState({selectedFile: null,filename:null,success :true});
+          this.fileid = result.data.file.id;
+          this.filename = result.data.file.filename;
+          console.log("*****************************");
+          // result.data.blob().then((blob)=>{
+          //   var size = blob.size();
+          //   var type = blob.type();
+          //   console.log("*"+size+"++++"+type);
+          // });
+        }
+      });
+      //save the uploaded file with coorect name and public private status
+     
+      // axios
+      //   .post("http://localhost:8080/api/store/", )
+  }
+
+  handleselectedFile(e) {
+    this.setState({
+      selectedFile: e.target.files[0],
+    });
+    this.url = e.target.value;
+    console.log(e.target.value);
+  }
+
+  captureInput(e){
+    this.setState({
+      filename: e.target.value  
+    });
+  }
+
+  handleSearch(e){
+    let filename = this.state.filename;
+    let url = "http://localhost:8080/music/fetch/"+filename;
+    console.log(url);
+    axios
+      .get(url)
+      .then(result=>{
+        if (result.data.errors) {
+          return result.data.errors;
+        }else{
+          return result;
+        }
+      });
+  }
+
+  trackid(e){
+    // let filen = e.target.value;
+    // console.log(filen);
+    this.setState({
+      filename: e.target.value  
+    });
+  }
+
+
+  //fetch music uploaded by a person and for loop through the filenames
+  render() {
+    return this.isloggedin ? (
+      <div className="body5">
+        <Nav login={this.isloggedin}/>
+        <div id="mainpageshow" >
+        <div className="bg1" />
+          <h1>FACE THE MUSIC!!</h1>
+          <div className="Searchbar">
+          <input type="text" className="searchinput" name="filename" onChange = {this.captureInput} placeholder="Search for your music"></input>
+          <button onClick={this.handleSearch} className="searchbtn">Search</button>
+          </div>
+          <input
+            onChange = {this.handleselectedFile}
+            type="file"
+            name="track"
+            id="post"
+            className="form-group"
+          />
+          <br>
+          </br>
+          <input
+            onChange = {this.captureInput}
+            type="text"
+            className="form-group"
+            placeholder="name your file without the extension"/>
+          <button onClick={this.handleUpload} className="mainpagebutton">Upload</button>
+          <br/>
+          <div>{ this.state.success ?
+          <span>{this.filendisplay} uploaded sucessfully</span> : <span></span>}
+          </div>
+          <div>{this.audioF === null? <p>..</p>
+          :<audio controls><source src={this.audioF} /></audio>}</div>
+          <div>
+          <input
+            onChange = {this.trackid}
+            type="text"
+            className="form-group"
+            placeholder="enter track id"/>
+          </div>
+          <button onClick={this.handleSearch} className="mainpagebutton">Search</button>
+      </div>
+      <Footer />
+    </div>
+    ) : (
+      <div>
+      <Nav/>
+      <h3>Please login</h3>
+      <Footer/>
+      </div>
+    );
+  }
+}
+export default Mainpage;

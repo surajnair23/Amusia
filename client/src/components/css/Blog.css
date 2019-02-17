@@ -1,0 +1,108 @@
+.Appblog {
+  text-align: center;
+}
+
+.wrapperblog { 
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr); 
+  grid-auto-rows: 100px; 
+} 
+
+.box1blog { 
+  grid-column-start: 1; 
+  grid-column-end: 4; 
+  grid-row-start: 1; 
+  grid-row-end: 6; 
+  font-size: calc(20px + 2vmin);
+}
+
+* {box-sizing: border-box;}
+
+.wrapperblog {
+  border: 2px solid #fcfaf9;
+  border-radius: 5px;
+  background-color: #fcfcfc;
+}
+
+.wrapperblog > div {
+  border: 2px solid #f7f6f6;
+  border-radius: 5px;
+  background-color: #050505;
+  padding: 1em;
+  color: #fdfafa;
+}
+
+
+.bodyblog {
+  margin: 0;
+  font-family: Arial;
+ 
+}
+
+.headerblog {
+  text-align: center;
+  padding: 14px;
+}
+
+/* Create two equal columns that floats next to each other */
+.columnblog {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
+
+.columnblog h1{
+  font-size: 18px;
+}
+
+.columnblog img {
+  margin-top: 12px;
+}
+
+/* Clear floats after the columns */
+.rowblog:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.containerblog {
+  position: relative;
+  width: 50%;
+}
+
+.imageblog {
+opacity: 1;
+display: block;
+width: 100%;
+height: auto;
+transition: .5s ease;
+backface-visibility: hidden;
+}
+
+.middleblog {
+transition: .5s ease;
+opacity: 0;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+-ms-transform: translate(-50%, -50%);
+text-align: center;
+}
+
+.containerblog:hover .imageblog {
+opacity: 0.3;
+}
+
+.containerblog:hover .middleblog {
+opacity: 1;
+}
+
+.textblog {
+background-color: #4CAF50;
+color: white;
+font-size: 12px;
+padding: 16px 32px;
+}
+

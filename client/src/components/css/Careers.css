@@ -1,0 +1,17 @@
+#section-b p{
+    color:blue; 
+}
+#section-b{
+    background-image: linear-gradient(to right,#A20CF1, #D10778,#A20CF1);
+}
+.jumbotron1 p{
+    position: absolute;
+    padding-left: 460px;
+    font-size: 48px;
+  }
+
+  .jumbotron1{
+   background-image: url("../../images/pexels-photo3.jpeg");
+   background-size: cover;
+   height: 500px;
+} 

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!-- saved from url=(0078)https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_center-vertical2 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+.center { 
+    height: 200px;
+    width:200px;
+    position: relative;
+    border: 3px solid green; 
+}
+
+.center p {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+</style>
+</head>
+<body contenteditable="false">
+
+<h2>Centering</h2>
+<p>In this example, we use positioning and the transform property to vertically and horizontally center the div element:</p>
+
+<div class="center">
+  <p>I am vertically and horizontally centered.</p>
+</div>
+
+<p>Note: The transform property is not supported in IE8 and earlier versions.</p>
+
+
+
+</body></html>
